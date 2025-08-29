@@ -1,0 +1,13 @@
+{
+  "strategy_name": "AlligatorStrategy",
+  "symbol": "EURUSD",
+  "timeframe": "M1",
+  "lot_size": 0.1,
+  "risk_percent": 1.5,
+  "stop_loss_pips": 50,
+  "take_profit_pips": 100,
+  "enable_ollama": true,
+  "ollama_model": "llama3:8b",
+  "ollama_timeout": 20,
+  "ollama_temperature": 0.3
+}

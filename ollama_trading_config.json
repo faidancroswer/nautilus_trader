@@ -1,0 +1,13 @@
+{
+  "host": "localhost",
+  "port": 11434,
+  "model": "llama3:8b",
+  "timeout": 8,
+  "max_retries": 1,
+  "temperature": 0.1,
+  "top_p": 0.8,
+  "max_tokens": 30,
+  "enable_cache": true,
+  "cache_duration": 60,
+  "max_cache_size": 20
+}
