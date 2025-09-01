@@ -154,7 +154,7 @@ def pull_required_models():
             models = response.json().get('models', [])
             model_names = [m['name'] for m in models]
             
-            required_models = ['llama3', 'llama3:8b', 'llama3:70b']
+            required_models = ['phi3:latest']
             available_models = []
             
             for req_model in required_models:
@@ -166,7 +166,7 @@ def pull_required_models():
                 return True
             else:
                 logger.warning("⚠ No required models found")
-                logger.info("  Consider pulling a model: ollama pull llama3")
+                logger.info("  Consider pulling a model: ollama pull phi3:latest")
                 return False
         else:
             logger.error("✗ Failed to get model list from Ollama")

@@ -156,7 +156,7 @@ class AdvancedOllamaAgent:
     Optimized for fast trading decisions
     """
 
-    def __init__(self, model: str = "llama3:8b", host: str = "localhost", port: int = 11434):
+    def __init__(self, model: str = "phi3:latest", host: str = "localhost", port: int = 11434):
         self.model = model
         self.port = port
         self.url = f"http://{host}:{port}/api/generate"
@@ -445,7 +445,7 @@ class AdvancedAlligatorStrategy:
     Now supports XAUUSD and BTCUSD
     """
 
-    def __init__(self, symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="llama3:latest"):
+    def __init__(self, symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="phi3:latest"):
         self.symbols = symbols if isinstance(symbols, list) else [symbols]
         self.timeframe = timeframe
 
@@ -873,7 +873,7 @@ def main():
     logger.info(f"Equity: {account_info.equity} {account_info.currency}")
     
     # Create strategy instance for multiple symbols
-    strategy = AdvancedAlligatorStrategy(symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="llama3:8b")
+    strategy = AdvancedAlligatorStrategy(symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="phi3:latest")
     
     try:
         # Run the strategy loop

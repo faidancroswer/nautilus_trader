@@ -168,7 +168,7 @@ RESPOND: BUY/SELL/HOLD/CLOSE"""
             logger.info(f"\nTestando prompt para {symbol}...")
             
             payload = {
-                "model": "llama3:8b",
+                "model": "phi3:latest",
                 "prompt": prompt,
                 "stream": False,
                 "temperature": 0.2,

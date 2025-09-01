@@ -84,10 +84,10 @@
     }
   },
   "ollama": {
-    "model": "llama3:8b",
+    "model": "phi3:latest",
     "host": "localhost",
     "port": 11434,
-    "timeout": 12,
+    "timeout": 30,
     "max_retries": 2,
     "temperature": 0.2,
     "top_p": 0.8,

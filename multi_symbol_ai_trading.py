@@ -183,10 +183,10 @@ class MultiSymbolOllamaAgent:
     Agente Ollama especializado para múltiplos símbolos
     """
     
-    def __init__(self, model: str = "llama3:8b"):
+    def __init__(self, model: str = "phi3:latest"):
         self.model = model
         self.url = "http://localhost:11434/api/generate"
-        self.timeout = 10
+        self.timeout = 30
         self.cache = {}
         self.cache_duration = 45  # segundos
         

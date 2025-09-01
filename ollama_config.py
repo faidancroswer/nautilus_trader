@@ -20,7 +20,7 @@ class OllamaConfig:
         # Configurações básicas do Ollama
         self.host = "localhost"
         self.port = 11434
-        self.model = "llama3:8b"
+        self.model = "phi3:latest"
         
         # Configurações de performance otimizadas
         self.timeout = 10  # Timeout reduzido para respostas rápidas

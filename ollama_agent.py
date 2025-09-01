@@ -39,7 +39,7 @@ class OllamaAgent:
 
     def __init__(
         self,
-        model: str = "llama3",
+        model: str = "phi3:latest",
         host: str = "localhost",
         port: int = 11434,
         timeout: int = 30,

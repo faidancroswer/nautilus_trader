@@ -56,7 +56,7 @@ class TechnicalIndicatorsConfig:
 @dataclass
 class AIConfig:
     """Configuration for AI agent."""
-    model: str = "llama3"
+    model: str = "phi3:latest"
     host: str = "localhost"
     port: int = 11434
     timeout: int = 30
@@ -138,7 +138,7 @@ class EnhancedAlligatorConfig:
         stoch_d_period: int = 3,
 
         # AI configuration
-        ollama_model: str = "llama3",
+        ollama_model: str = "phi3:latest",
         ollama_host: str = "localhost",
         ollama_port: int = 11434,
         ai_timeout: int = 30,
@@ -503,7 +503,7 @@ class ConfigManager:
                 stoch_d_period=technical_indicators.get('stoch_d_period', 3),
 
                 # AI configuration
-                ollama_model=ai.get('model', 'llama3'),
+                ollama_model=ai.get('model', 'phi3:latest'),
                 ollama_host=ai.get('host', 'localhost'),
                 ollama_port=ai.get('port', 11434),
                 ai_timeout=ai.get('timeout', 30),
@@ -578,7 +578,7 @@ class ConfigManager:
 
         # Trading configuration
         env_config['instrument_id'] = os.getenv('ENHANCED_ALLIGATOR_INSTRUMENT', 'EUR/USD.IDEALPRO')
-        env_config['ollama_model'] = os.getenv('OLLAMA_MODEL', 'llama3')
+        env_config['ollama_model'] = os.getenv('OLLAMA_MODEL', 'phi3:latest')
         env_config['ollama_host'] = os.getenv('OLLAMA_HOST', 'localhost')
         env_config['ollama_port'] = os.getenv('OLLAMA_PORT', '11434')
         env_config['log_level'] = os.getenv('LOG_LEVEL', 'INFO')

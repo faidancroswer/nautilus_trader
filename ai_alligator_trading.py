@@ -31,7 +31,7 @@ class OllamaAgent:
     Ollama AI Agent for trading decisions
     """
     
-    def __init__(self, model: str = "llama3", host: str = "localhost", port: int = 11434):
+    def __init__(self, model: str = "phi3:latest", host: str = "localhost", port: int = 11434):
         self.model = model
         self.host = host
         self.port = port
@@ -125,7 +125,7 @@ class EnhancedAlligatorStrategy:
     Enhanced Alligator strategy with AI decision making
     """
     
-    def __init__(self, symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3"):
+    def __init__(self, symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="phi3:latest"):
         self.symbol = symbol
         self.timeframe = timeframe
         self.jaw_period = 13
@@ -459,7 +459,7 @@ def main():
         ai_agent = OllamaAgent()
         test_prompt = "Hello, are you working?"
         payload = {
-            "model": "llama3",
+            "model": "phi3:latest",
             "prompt": test_prompt,
             "stream": False
         }
@@ -486,7 +486,7 @@ def main():
     logger.info(f"Equity: {account_info.equity} {account_info.currency}")
     
     # Create strategy instance
-    strategy = EnhancedAlligatorStrategy(symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3")
+    strategy = EnhancedAlligatorStrategy(symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="phi3:latest")
     
     try:
         # Run the strategy loop

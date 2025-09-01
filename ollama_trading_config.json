@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 11434,
-  "model": "llama3:8b",
+  "model": "llama3:latest",
   "timeout": 8,
   "max_retries": 1,
   "temperature": 0.1,

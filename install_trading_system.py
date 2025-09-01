@@ -147,7 +147,7 @@ def check_ollama_installation():
                 logger.info(f"  Available models: {[m['name'] for m in models]}")
             else:
                 logger.warning("  No models found in Ollama")
-                logger.info("  Consider pulling a model: ollama pull llama3")
+                logger.info("  Consider pulling a model: ollama pull phi3:latest")
             return True
         else:
             logger.warning("⚠ Ollama is not responding correctly")
@@ -203,7 +203,7 @@ tp_points = 100
 max_risk_percent = 1.5
 
 [ai]
-model = llama3
+model = phi3:latest
 host = localhost
 port = 11434
 
@@ -316,7 +316,7 @@ def main():
     logger.info("Next steps:")
     logger.info("1. Ensure MetaTrader 5 is installed and running")
     logger.info("2. Ensure Ollama is installed and running")
-    logger.info("3. Pull required AI model: ollama pull llama3")
+    logger.info("3. Pull required AI model: ollama pull phi3:latest")
     logger.info("4. Configure your trading settings in config.ini")
     logger.info("5. Run the system: python run_trading_system.py")
     logger.info("")

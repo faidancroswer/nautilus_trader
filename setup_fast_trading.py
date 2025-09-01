@@ -126,17 +126,17 @@ def check_ollama_model():
         if response.status_code == 200:
             models = response.json().get('models', [])
             
-            # Procurar por modelos llama3
+            # Procurar por modelos phi3
             available_models = [model['name'] for model in models]
             logger.info(f"Modelos disponíveis: {available_models}")
-            
-            # Verificar se temos llama3:8b ou similar
+
+            # Verificar se temos phi3:latest ou similar
             for model in available_models:
-                if 'llama3' in model.lower():
-                    logger.info(f"Modelo Llama3 encontrado: {model}")
+                if 'phi3' in model.lower():
+                    logger.info(f"Modelo Phi3 encontrado: {model}")
                     return True
-            
-            logger.warning("Modelo Llama3 não encontrado")
+
+            logger.warning("Modelo Phi3 não encontrado")
             return False
         else:
             logger.error("Falha ao verificar modelos")
@@ -147,12 +147,12 @@ def check_ollama_model():
         return False
 
 
-def download_llama3_model():
-    """Baixa o modelo Llama3 se necessário"""
-    logger.info("Baixando modelo Llama3:8b...")
+def download_phi3_model():
+    """Baixa o modelo Phi3 se necessário"""
+    logger.info("Baixando modelo phi3:latest...")
     try:
         process = subprocess.Popen(
-            ['ollama', 'pull', 'llama3:8b'],
+            ['ollama', 'pull', 'phi3:latest'],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
@@ -167,7 +167,7 @@ def download_llama3_model():
                 logger.info(f"Download: {output.strip()}")
         
         if process.returncode == 0:
-            logger.info("Modelo Llama3:8b baixado com sucesso")
+            logger.info("Modelo phi3:latest baixado com sucesso")
             return True
         else:
             logger.error("Falha ao baixar modelo")
@@ -268,8 +268,8 @@ def main():
     
     # Verificar/baixar modelo
     if not check_ollama_model():
-        logger.info("Modelo Llama3 não encontrado, iniciando download...")
-        if not download_llama3_model():
+        logger.info("Modelo Phi3 não encontrado, iniciando download...")
+        if not download_phi3_model():
             return False
     
     # Criar arquivos de configuração

@@ -101,7 +101,7 @@ class EnhancedAlligatorConfig(StrategyConfig, frozen=True):
         The D period for Stochastic Oscillator.
 
     # AI Configuration
-    ollama_model : str, default "llama3"
+    ollama_model : str, default "phi3:latest"
         The Ollama model to use for AI decisions.
     ollama_host : str, default "localhost"
         The Ollama server host.
@@ -147,7 +147,7 @@ class EnhancedAlligatorConfig(StrategyConfig, frozen=True):
     stoch_d_period: PositiveInt = 3
 
     # AI configuration
-    ollama_model: str = "llama3"
+    ollama_model: str = "phi3:latest"
     ollama_host: str = "localhost"
     ollama_port: PositiveInt = 11434
     ai_decision_threshold: PositiveFloat = 0.7

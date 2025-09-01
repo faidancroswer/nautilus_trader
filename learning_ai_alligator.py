@@ -97,7 +97,7 @@ class ContinuousLearningAgent:
     AI Agent with continuous learning capabilities
     """
     
-    def __init__(self, model: str = "llama3", host: str = "localhost", port: int = 11434):
+    def __init__(self, model: str = "phi3:latest", host: str = "localhost", port: int = 11434):
         self.model = model
         self.host = host
         self.port = port
@@ -206,7 +206,7 @@ class LearningAlligatorStrategy:
     Alligator strategy with continuous learning
     """
     
-    def __init__(self, symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3"):
+    def __init__(self, symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="phi3:latest"):
         self.symbol = symbol
         self.timeframe = timeframe
         self.lot_size = 0.1
@@ -495,7 +495,7 @@ def main():
     try:
         agent = ContinuousLearningAgent()
         test_payload = {
-            "model": "llama3",
+            "model": "phi3:latest",
             "prompt": "Test connection to learning AI",
             "stream": False,
             "max_tokens": 50
@@ -523,7 +523,7 @@ def main():
     logger.info(f"Equity: {account_info.equity} {account_info.currency}")
     
     # Create strategy instance
-    strategy = LearningAlligatorStrategy(symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3")
+    strategy = LearningAlligatorStrategy(symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="phi3:latest")
     
     try:
         iteration = 0
