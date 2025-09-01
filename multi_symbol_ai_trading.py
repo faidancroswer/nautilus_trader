@@ -17,6 +17,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 from concurrent.futures import ThreadPoolExecutor
 import threading
+from model_selector import auto_select_trading_model
 
 # Configure logging
 logging.basicConfig(
@@ -183,12 +184,25 @@ class MultiSymbolOllamaAgent:
     Agente Ollama especializado para múltiplos símbolos
     """
     
-    def __init__(self, model: str = "phi3:latest"):
-        self.model = model
+    def __init__(self, model: str = None):
+        # Seleção automática do melhor modelo disponível
+        if model is None:
+            model_config = auto_select_trading_model("speed")
+            self.model = model_config["model"]
+            self.timeout = model_config["timeout"]
+            self.temperature = model_config["temperature"]
+            self.max_tokens = model_config["max_tokens"]
+        else:
+            self.model = model
+            self.timeout = 15
+            self.temperature = 0.2
+            self.max_tokens = 50
+
         self.url = "http://localhost:11434/api/generate"
-        self.timeout = 30
         self.cache = {}
         self.cache_duration = 45  # segundos
+
+        logger.info(f"Ollama Agent inicializado com modelo: {self.model} (timeout: {self.timeout}s)")
         
     def get_symbol_decision(self, symbol: str, analysis: Dict[str, Any]) -> str:
         """
@@ -259,8 +273,8 @@ RESPOND: BUY/SELL/HOLD/CLOSE"""
                 "model": self.model,
                 "prompt": prompt,
                 "stream": False,
-                "temperature": 0.2,
-                "max_tokens": 20
+                "temperature": self.temperature,
+                "max_tokens": self.max_tokens
             }
             
             response = requests.post(self.url, json=payload, timeout=self.timeout)
