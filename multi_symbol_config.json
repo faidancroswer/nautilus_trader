@@ -1,0 +1,141 @@
+{
+  "trading": {
+    "symbols": ["XAUUSD", "BTCUSD"],
+    "timeframe": "M1",
+    "execution_interval": 30,
+    "max_concurrent_positions_per_symbol": 1,
+    "total_max_positions": 2
+  },
+  "symbol_specific": {
+    "XAUUSD": {
+      "name": "Gold",
+      "asset_class": "commodity",
+      "lot_size": 0.01,
+      "min_lot": 0.01,
+      "max_lot": 0.1,
+      "sl_points": 200,
+      "tp_points": 400,
+      "max_risk_percent": 1.0,
+      "min_spread": 30,
+      "max_spread": 100,
+      "volatility_multiplier": 2.0,
+      "pip_value": 0.01,
+      "contract_size": 100,
+      "margin_requirement": 0.5,
+      "trading_sessions": {
+        "asian": {"start": "00:00", "end": "09:00", "volatility": 0.8},
+        "london": {"start": "08:00", "end": "17:00", "volatility": 1.2},
+        "ny": {"start": "13:00", "end": "22:00", "volatility": 1.0}
+      },
+      "technical_params": {
+        "alligator": {
+          "jaw_period": 13,
+          "teeth_period": 8,
+          "lips_period": 5,
+          "jaw_shift": 8,
+          "teeth_shift": 5,
+          "lips_shift": 3
+        },
+        "rsi_period": 14,
+        "macd": {
+          "fast": 12,
+          "slow": 26,
+          "signal": 9
+        }
+      }
+    },
+    "BTCUSD": {
+      "name": "Bitcoin",
+      "asset_class": "cryptocurrency",
+      "lot_size": 0.01,
+      "min_lot": 0.01,
+      "max_lot": 0.05,
+      "sl_points": 500,
+      "tp_points": 1000,
+      "max_risk_percent": 0.5,
+      "min_spread": 50,
+      "max_spread": 200,
+      "volatility_multiplier": 5.0,
+      "pip_value": 1.0,
+      "contract_size": 1,
+      "margin_requirement": 1.0,
+      "trading_sessions": {
+        "asian": {"start": "00:00", "end": "08:00", "volatility": 0.9},
+        "london": {"start": "08:00", "end": "16:00", "volatility": 1.1},
+        "ny": {"start": "14:00", "end": "22:00", "volatility": 1.3},
+        "weekend": {"start": "00:00", "end": "23:59", "volatility": 0.7}
+      },
+      "technical_params": {
+        "alligator": {
+          "jaw_period": 21,
+          "teeth_period": 13,
+          "lips_period": 8,
+          "jaw_shift": 8,
+          "teeth_shift": 5,
+          "lips_shift": 3
+        },
+        "rsi_period": 21,
+        "macd": {
+          "fast": 12,
+          "slow": 26,
+          "signal": 9
+        }
+      }
+    }
+  },
+  "ollama": {
+    "model": "llama3:8b",
+    "host": "localhost",
+    "port": 11434,
+    "timeout": 12,
+    "max_retries": 2,
+    "temperature": 0.2,
+    "top_p": 0.8,
+    "max_tokens": 50,
+    "cache_enabled": true,
+    "cache_duration": 45
+  },
+  "risk_management": {
+    "global_max_risk_percent": 2.0,
+    "max_daily_loss_percent": 5.0,
+    "max_drawdown_percent": 10.0,
+    "position_correlation_limit": 0.7,
+    "volatility_adjustment": true,
+    "dynamic_position_sizing": true
+  },
+  "market_conditions": {
+    "high_volatility_threshold": 3.0,
+    "low_volatility_threshold": 0.5,
+    "trend_strength_threshold": 1.5,
+    "correlation_check_enabled": true,
+    "news_impact_consideration": false
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "multi_symbol_trading.log",
+    "max_size_mb": 10,
+    "backup_count": 5,
+    "console_output": true
+  },
+  "notifications": {
+    "enabled": false,
+    "email": {
+      "smtp_server": "smtp.gmail.com",
+      "port": 587,
+      "username": "",
+      "password": "",
+      "recipients": []
+    },
+    "webhook": {
+      "url": "",
+      "enabled": false
+    }
+  },
+  "performance": {
+    "parallel_execution": true,
+    "max_workers": 2,
+    "symbol_execution_delay": 5,
+    "cache_cleanup_interval": 300,
+    "performance_monitoring": true
+  }
+}

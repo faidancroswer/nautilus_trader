@@ -168,36 +168,48 @@ class AlligatorStrategy:
                     return 'N/A'
                 return f"{value:.{precision}f}"
             
+            # Add XAUUSD-specific considerations
+            symbol_specific_info = ""
+            if self.symbol == "XAUUSD":
+                symbol_specific_info = """
+Key considerations for XAUUSD (Gold vs USD):
+1. Gold is a safe-haven asset with different volatility patterns than forex pairs
+2. Gold often moves inversely to USD strength and risk sentiment
+3. Economic data like inflation, interest rates, and geopolitical events heavily impact gold
+4. Gold typically has lower pip values but higher point values than forex pairs
+5. Gold can have longer trending periods and stronger momentum moves
+"""
+            
             prompt = f"""
-            You are a professional forex trader specializing in the Alligator strategy.
-            Analyze the following market conditions for {self.symbol} and provide a trading decision.
-            
-            Current Market Data:
-            Price: {format_value(indicators['price'], 5)}
-            Alligator Jaw: {format_value(indicators['alligator_jaw'], 5)}
-            Alligator Teeth: {format_value(indicators['alligator_teeth'], 5)}
-            Alligator Lips: {format_value(indicators['alligator_lips'], 5)}
-            RSI ({self.rsi_params['period']}): {format_value(indicators['rsi'], 2)}
-            MACD Line: {format_value(indicators['macd_line'], 5)}
-            MACD Signal: {format_value(indicators['macd_signal'], 5)}
-            MACD Histogram: {format_value(indicators['macd_histogram'], 5)}
-            
-            Trading Rules:
-            1. OPEN_BUY when Alligator lines align in upward direction (Lips > Teeth > Jaw) and RSI < 70
-            2. OPEN_SELL when Alligator lines align in downward direction (Lips < Teeth < Jaw) and RSI > 30
-            3. CLOSE_POSITION when opposite alignment occurs or RSI indicates overbought/oversold
-            4. HOLD when conditions are unclear
-            
-            Risk Management:
-            - Risk per trade: {self.risk_percent}%
-            - Lot size: {self.lot_size}
-            
-            Respond with ONLY ONE of these decisions:
-            - OPEN_BUY
-            - OPEN_SELL
-            - CLOSE_POSITION
-            - HOLD
-            """
+You are a professional {('commodity' if self.symbol == 'XAUUSD' else 'forex')} trader specializing in the Alligator strategy.
+Analyze the following market conditions for {self.symbol} and provide a trading decision.
+{symbol_specific_info}
+Current Market Data:
+Price: {format_value(indicators['price'], 5)}
+Alligator Jaw: {format_value(indicators['alligator_jaw'], 5)}
+Alligator Teeth: {format_value(indicators['alligator_teeth'], 5)}
+Alligator Lips: {format_value(indicators['alligator_lips'], 5)}
+RSI ({self.rsi_params['period']}): {format_value(indicators['rsi'], 2)}
+MACD Line: {format_value(indicators['macd_line'], 5)}
+MACD Signal: {format_value(indicators['macd_signal'], 5)}
+MACD Histogram: {format_value(indicators['macd_histogram'], 5)}
+
+Alligator Strategy Rules for {self.symbol}:
+1. OPEN_BUY when Alligator lines align in upward direction (Lips > Teeth > Jaw) AND RSI < 70
+2. OPEN_SELL when Alligator lines align in downward direction (Lips < Teeth < Jaw) AND RSI > 30
+3. CLOSE_POSITION when opposite alignment occurs OR RSI indicates overbought/oversold
+4. HOLD when conditions are unclear or conflicting
+
+Risk Management:
+- Risk per trade: {self.risk_percent}%
+- Lot size: {self.lot_size}
+
+Respond with ONLY ONE of these decisions:
+- OPEN_BUY
+- OPEN_SELL
+- CLOSE_POSITION
+- HOLD
+"""
             
             # Get decision from Ollama
             response = ollama.chat(
@@ -260,10 +272,18 @@ class AlligatorStrategy:
                 price = mt5.symbol_info_tick(self.symbol).bid
                 order_type_mt5 = mt5.ORDER_TYPE_SELL
             
-            # Calculate SL and TP (simple fixed points, adjust as needed)
+            # Calculate SL and TP (adjusted for symbol type)
             point = symbol_info.point
-            sl_points = 100  # 100 points SL
-            tp_points = 200  # 200 points TP (2:1 risk-reward)
+            
+            # Adjust SL/TP based on symbol type
+            if self.symbol == "XAUUSD":
+                # Gold typically needs wider stops due to higher volatility
+                sl_points = 300  # 300 points SL for gold
+                tp_points = 600  # 600 points TP for gold (2:1 risk-reward)
+            else:
+                # Standard forex settings
+                sl_points = 100  # 100 points SL
+                tp_points = 200  # 200 points TP (2:1 risk-reward)
             
             if order_type == "BUY":
                 sl = price - sl_points * point

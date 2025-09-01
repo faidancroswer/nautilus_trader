@@ -199,7 +199,7 @@ class AdvancedOllamaAgent:
 
 
 
-    def create_comprehensive_analysis(self, df: pd.DataFrame, positions: list, account_info: Dict[str, Any]) -> Dict[str, Any]:
+    def create_comprehensive_analysis(self, df: pd.DataFrame, positions: list, account_info: Dict[str, Any], symbol: str = "EURUSD") -> Dict[str, Any]:
 
         """
         Create comprehensive market analysis
@@ -233,7 +233,7 @@ class AdvancedOllamaAgent:
         price_change_24h = ((current_price - df['close'].iloc[-24]) / df['close'].iloc[-24]) * 100
         
         return {
-            "symbol": "EURUSD",
+            "symbol": symbol,
             "current_price": float(current_price),
             "alligator": {
                 "jaw": float(last_jaw) if not pd.isna(last_jaw) else 0,
@@ -442,28 +442,46 @@ RESPOND ONLY: OPEN_BUY, OPEN_SELL, CLOSE_POSITION, or HOLD"""
 class AdvancedAlligatorStrategy:
     """
     Advanced Alligator strategy with comprehensive AI integration
+    Now supports XAUUSD and BTCUSD
     """
-    
-    def __init__(self, symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3:latest"):
-        self.symbol = symbol
+
+    def __init__(self, symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="llama3:latest"):
+        self.symbols = symbols if isinstance(symbols, list) else [symbols]
         self.timeframe = timeframe
-        self.lot_size = 0.1
-        self.sl_points = 100
-        self.tp_points = 100
-        self.max_risk_percent = 1.5  # Reduced risk per trade
-        
+
+        # Configurações específicas por símbolo
+        self.symbol_configs = {
+            "XAUUSD": {
+                "lot_size": 0.01,
+                "sl_points": 200,
+                "tp_points": 400,
+                "max_risk_percent": 1.0,
+                "volatility_multiplier": 2.0
+            },
+            "BTCUSD": {
+                "lot_size": 0.01,
+                "sl_points": 500,
+                "tp_points": 1000,
+                "max_risk_percent": 0.5,
+                "volatility_multiplier": 5.0
+            }
+        }
+
         # Initialize advanced AI agent
         self.ai_agent = AdvancedOllamaAgent(model=model)
+
+        # Tracking por símbolo
+        self.last_execution = {symbol: 0 for symbol in self.symbols}
         
-    def get_market_data(self, count=100):
+    def get_market_data(self, symbol: str, count=100):
         """
-        Get market data from MT5
+        Get market data from MT5 for specific symbol
         """
-        rates = mt5.copy_rates_from_pos(self.symbol, self.timeframe, 0, count)
+        rates = mt5.copy_rates_from_pos(symbol, self.timeframe, 0, count)
         if rates is None:
-            logger.error(f"Failed to get market data: {mt5.last_error()}")
+            logger.error(f"Failed to get market data for {symbol}: {mt5.last_error()}")
             return None
-            
+
         df = pd.DataFrame(rates)
         df['time'] = pd.to_datetime(df['time'], unit='s')
         return df
@@ -484,14 +502,13 @@ class AdvancedAlligatorStrategy:
             "margin_level": account_info.margin_level
         }
     
-    def get_open_positions(self):
+    def get_open_positions(self, symbol: str):
         """
-        Get open positions from MT5
-
+        Get open positions from MT5 for specific symbol
         """
-        positions = mt5.positions_get(symbol=self.symbol)
+        positions = mt5.positions_get(symbol=symbol)
         if positions is None:
-            logger.error(f"Failed to get positions: {mt5.last_error()}")
+            logger.error(f"Failed to get positions for {symbol}: {mt5.last_error()}")
             return []
         return positions
     
@@ -568,6 +585,99 @@ class AdvancedAlligatorStrategy:
         logger.info(f"Position {position.ticket} closed successfully")
         return True
     
+
+    def open_position_for_symbol(self, symbol: str, signal: str, volatility: float, config: Dict[str, Any]):
+        """
+        Open a new position for specific symbol with adapted parameters
+        """
+        try:
+            # Get symbol info
+            symbol_info = mt5.symbol_info(symbol)
+            if symbol_info is None:
+                logger.error(f"Failed to get symbol info for {symbol}: {mt5.last_error()}")
+                return False
+
+            # Check if symbol is available for trading
+            if not symbol_info.visible:
+                logger.info(f"Symbol {symbol} is not visible, trying to select it")
+                if not mt5.symbol_select(symbol, True):
+                    logger.error(f"Failed to select symbol {symbol}: {mt5.last_error()}")
+                    return False
+
+            # Get account info for position sizing
+            account_info = self.get_account_info()
+            if account_info is None:
+                return False
+
+            # Use symbol-specific lot size
+            lot_size = config['lot_size']
+
+            # Adjust lot size based on volatility
+            volatility_adj = min(2.0, max(0.5, volatility * config['volatility_multiplier']))
+            lot_size = lot_size / volatility_adj
+            lot_size = max(symbol_info.volume_min, min(lot_size, config.get('max_lot', 0.1)))
+
+            logger.info(f"{symbol}: Calculated lot size: {lot_size} (volatility: {volatility:.5f})")
+
+            # Get current price
+            if signal == "BUY":
+                price = mt5.symbol_info_tick(symbol).ask
+                order_type = mt5.ORDER_TYPE_BUY
+            else:
+                price = mt5.symbol_info_tick(symbol).bid
+                order_type = mt5.ORDER_TYPE_SELL
+
+            # Symbol-specific SL and TP
+            sl_points = config['sl_points']
+            tp_points = config['tp_points']
+
+            # Adjust for current volatility
+            volatility_factor = min(2.0, max(0.5, volatility * 10000))
+            sl_points = int(sl_points * volatility_factor)
+            tp_points = int(tp_points * volatility_factor)
+
+            # Calculate SL and TP
+            point = symbol_info.point
+            if signal == "BUY":
+                sl = price - sl_points * point
+                tp = price + tp_points * point
+            else:
+                sl = price + sl_points * point
+                tp = price - tp_points * point
+
+            # Prepare order request
+            request = {
+                "action": mt5.TRADE_ACTION_DEAL,
+                "symbol": symbol,
+                "volume": lot_size,
+                "type": order_type,
+                "price": price,
+                "sl": sl,
+                "tp": tp,
+                "deviation": 50,  # Higher deviation for volatile symbols
+                "magic": 234000 + hash(symbol) % 1000,  # Unique magic per symbol
+                "comment": f"AI {symbol} {signal}",
+                "type_time": mt5.ORDER_TIME_GTC,
+                "type_filling": mt5.ORDER_FILLING_IOC,
+            }
+
+            # Send order
+            result = mt5.order_send(request)
+            if result is None:
+                logger.error(f"Failed to send order for {symbol}: {mt5.last_error()}")
+                return False
+
+            if result.retcode != mt5.TRADE_RETCODE_DONE:
+                logger.error(f"Order failed for {symbol} with retcode {result.retcode}")
+                return False
+
+            logger.info(f"{symbol} {signal} order placed: {lot_size} lots at {price}")
+            logger.info(f"{symbol} SL: {sl:.5f}, TP: {tp:.5f}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error opening position for {symbol}: {e}")
+            return False
 
     def open_position(self, signal, volatility: float = 0.001):
         """
@@ -647,46 +757,66 @@ class AdvancedAlligatorStrategy:
         logger.info(f"SL: {sl:.5f}, TP: {tp:.5f}")
         return True
     
+    def execute_strategy_for_symbol(self, symbol: str):
+        """
+        Execute the advanced Alligator strategy with AI for specific symbol
+        """
+        try:
+            current_time = time.time()
+
+            # Controle de frequência por símbolo
+            if current_time - self.last_execution[symbol] < 30:  # 30 segundos entre execuções
+                return
+
+            # Get market data for symbol
+            df = self.get_market_data(symbol)
+            if df is None or len(df) < 50:
+                return
+
+            # Get account info
+            account_info = self.get_account_info()
+            if account_info is None:
+                return
+
+            # Get open positions for symbol
+            positions = self.get_open_positions(symbol)
+
+            # Create comprehensive analysis with symbol-specific config
+            analysis = self.ai_agent.create_comprehensive_analysis(df, positions, account_info, symbol)
+
+            # Get AI decision
+            decision = self.ai_agent.get_decision(analysis)
+
+            # Get symbol config
+            config = self.symbol_configs.get(symbol, self.symbol_configs["XAUUSD"])
+
+            # Execute decision
+            if decision == "OPEN_BUY" and len(positions) == 0:
+                logger.info(f"{symbol}: AI decided to OPEN_BUY")
+                volatility = analysis['market_conditions']['volatility']
+                self.open_position_for_symbol(symbol, "BUY", volatility, config)
+            elif decision == "OPEN_SELL" and len(positions) == 0:
+                logger.info(f"{symbol}: AI decided to OPEN_SELL")
+                volatility = analysis['market_conditions']['volatility']
+                self.open_position_for_symbol(symbol, "SELL", volatility, config)
+            elif decision == "CLOSE_POSITION" and len(positions) > 0:
+                logger.info(f"{symbol}: AI decided to CLOSE_POSITION")
+                for position in positions:
+                    self.close_position(position)
+            elif decision == "HOLD":
+                logger.info(f"{symbol}: AI decided to HOLD")
+
+            self.last_execution[symbol] = current_time
+
+        except Exception as e:
+            logger.error(f"Error executing strategy for {symbol}: {e}")
+
     def execute_strategy(self):
         """
-        Execute the advanced Alligator strategy with AI
+        Execute strategy for all symbols
         """
-        # Get market data
-        df = self.get_market_data()
-        if df is None or len(df) < 50:  # Need enough data for comprehensive analysis
-            return
-            
-        # Get account info
-        account_info = self.get_account_info()
-        if account_info is None:
-            return
-            
-        # Get open positions
-        positions = self.get_open_positions()
-        
-        # Create comprehensive analysis
-        analysis = self.ai_agent.create_comprehensive_analysis(df, positions, account_info)
-        
-        # Get AI decision
-        decision = self.ai_agent.get_decision(analysis)
-        
-        # Execute decision
-        if decision == "OPEN_BUY" and len(positions) == 0:
-            logger.info("AI decided to OPEN_BUY")
-            volatility = analysis['market_conditions']['volatility']
-            self.open_position("BUY", volatility)
-        elif decision == "OPEN_SELL" and len(positions) == 0:
-            logger.info("AI decided to OPEN_SELL")
-            volatility = analysis['market_conditions']['volatility']
-            self.open_position("SELL", volatility)
-        elif decision == "CLOSE_POSITION" and len(positions) > 0:
-            logger.info("AI decided to CLOSE_POSITION")
-            for position in positions:
-                self.close_position(position)
-        elif decision == "ADJUST_STOP_LOSS" and len(positions) > 0:
-            logger.info("AI decided to ADJUST_STOP_LOSS - not implemented in this version")
-        elif decision == "HOLD":
-            logger.info("AI decided to HOLD - no action taken")
+        for symbol in self.symbols:
+            self.execute_strategy_for_symbol(symbol)
 
 
 def initialize_mt5():
@@ -742,8 +872,8 @@ def main():
     logger.info(f"Balance: {account_info.balance} {account_info.currency}")
     logger.info(f"Equity: {account_info.equity} {account_info.currency}")
     
-    # Create strategy instance
-    strategy = AdvancedAlligatorStrategy(symbol="EURUSD", timeframe=mt5.TIMEFRAME_M1, model="llama3:latest")
+    # Create strategy instance for multiple symbols
+    strategy = AdvancedAlligatorStrategy(symbols=["XAUUSD", "BTCUSD"], timeframe=mt5.TIMEFRAME_M1, model="llama3:8b")
     
     try:
         # Run the strategy loop
