@@ -1,0 +1,45 @@
+{
+  "trading": {
+    "symbol": "BTCUSD",
+    "timeframe": "M1",
+    "lot_size": 0.01,
+    "max_risk_percent": 0.5,
+    "max_positions": 1,
+    "strategy": "optimized_alligator"
+  },
+  "alligator": {
+    "jaw_period": 21,
+    "jaw_shift": 13,
+    "teeth_period": 13,
+    "teeth_shift": 8,
+    "lips_period": 8,
+    "lips_shift": 5
+  },
+  "risk_management": {
+    "sl_points": 1000,
+    "tp_points": 2000,
+    "volatility_threshold": 0.02,
+    "btc_volatility_multiplier": 3.0,
+    "min_profit_pips": 500
+  },
+  "performance": {
+    "cache_duration": 30,
+    "data_buffer_size": 200,
+    "execution_interval": 15,
+    "ai_timeout": 15,
+    "max_retries": 2,
+    "concurrent_requests": true
+  },
+  "ai": {
+    "model": "phi3:latest",
+    "temperature": 0.2,
+    "max_tokens": 50,
+    "host": "localhost",
+    "port": 11434
+  },
+  "monitoring": {
+    "log_level": "INFO",
+    "performance_log_interval": 300,
+    "cleanup_interval": 100
+  }
+}

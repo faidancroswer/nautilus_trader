@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-10-11T17:06:26.334980",
+  "tests": {
+    "Basic Functionality": {
+      "success": true,
+      "duration": 0.011846303939819336,
+      "timestamp": "2025-10-11T17:06:26.347827"
+    },
+    "LLM Optimization": {
+      "success": false,
+      "duration": 32.03966689109802,
+      "timestamp": "2025-10-11T17:06:58.392140"
+    },
+    "Performance Monitoring": {
+      "success": true,
+      "duration": 3.0548133850097656,
+      "timestamp": "2025-10-11T17:07:01.448959"
+    },
+    "Parameter Scenarios": {
+      "success": true,
+      "duration": 0.0,
+      "timestamp": "2025-10-11T17:07:01.453507"
+    }
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 3,
+    "failed_tests": 1,
+    "success_rate": 75.0,
+    "total_duration": 35.10632658004761
+  }
+}
