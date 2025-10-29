@@ -1,0 +1,135 @@
+# EA2060 819830 - COMANDOS DE EXECUÇÃO
+
+## 🚀 **SISTEMA COMPLETO DE TRADING EA2060**
+
+### **📋 MODO DE USO RÁPIDO:**
+
+#### **1. Sistema Principal (Recomendado)**
+```bash
+# Menu interativo completo
+python run_ea2060.py
+```
+
+#### **2. Versões Individuais**
+
+**Padrão:**
+```bash
+# Trader básico
+python ea2060_simple_trader.py
+
+# Trader otimizado
+python ea2060_optimized_trader.py
+
+# Backtest rápido
+python ea2060_quick_backtest.py
+```
+
+**Avançado com LLM:**
+```bash
+# Trader com IA integrada
+python ea2060_llm_enhanced.py
+
+# Demo de análise LLM
+python -c "from ea2060_llm_enhanced import EA2060LLMTrader; t=EA2060LLMTrader(); t.initialize_mt5() and exec('df=t.get_historical_data(\"XAUUSD\", t.timeframe, 100); analysis=t.analyze_with_llm(df); print(\"\\n=== LLM ANALYSIS ===\\n\", f\"Action: {analysis[\\\"action\\\"]}\\nConfidence: {analysis[\\\"confidence\\\"]:.2f}\\nReasoning: {analysis[\\\"reasoning\\\"]}\\nSignal: {analysis[\\\"signal_strength\\\"]}\")')"
+```
+
+### **🎯 **OPÇÕES DO MENU PRINCIPAL:**
+
+**Standard Modes:**
+- `1` - EA2060 Simple Trader (Indicadores básicos)
+- `2` - EA2060 Optimized Trader (Parâmetros otimizados)
+- `3` - EA2060 Backtest (Otimização rápida)
+
+**AI-Enhanced Modes:**
+- `4` - EA2060 LLM-Enhanced Trader (Decisões com IA)
+- `5` - LLM Analysis Demo (Testar análise IA)
+
+**Advanced Modes:**
+- `6` - Nautilus Integration (Framework avançado)
+- `7` - Performance Analysis (Análise de performance)
+
+**Utility:**
+- `8` - View System Status (Verificar sistema)
+- `9` - Configuration Settings (Configurações)
+
+### **📊 **RESULTADOS DA OTIMIZAÇÃO:**
+
+**Parâmetros Otimimizados:**
+- EMA Fast: 6 períodos
+- EMA Slow: 18 períodos
+- Stop Loss: 250 pips (adaptativo)
+- Take Profit: 300 pips (RR 1:1.2)
+- Risco por Trade: 1.0%
+- Máximo de Posições: 3
+
+**Performance do Backtest:**
+- Retorno: -0.07% (breake-even prático)
+- Win Rate: 44.0%
+- Total de Trades: 654
+- Drawdown Máximo: 0.17%
+- Período Testado: Jun/2024 - Out/2025
+
+### **🤖 **INTEGRAÇÃO LLM:**
+
+**Sistema de Decisão IA:**
+- Score de Sinal: 0-10 pontos
+- Confiança Mínima: 0.65 (65%)
+- Níveis de Risco: LOW/MEDIUM/HIGH
+- Análise Multi-Fatores: 7 critérios
+
+**Pesos da Análise LLM:**
+- EMA Crossover: 25%
+- SuperTrend: 20%
+- Momentum: 15%
+- Volume: 10%
+- Suporte/Resistência: 15%
+- Volatilidade: 10%
+- Temporal: 5%
+
+### **⚙️ **CONFIGURAÇÃO MT5:**
+
+**Requisitos:**
+- ✅ Conta FBS Real configurada
+- ✅ Saldo atual: $613.31
+- ✅ Símbolo: XAUUSD
+- ✅ Timeframe: H1 (1 hora)
+- ✅ Alavancagem: 1:500
+
+### **🛡️ **MODO DE USO RECOMENDADO:**
+
+**Para Operações Reais:**
+1. Use `python run_ea2060.py`
+2. Selecione opção `2` (Optimized Trader)
+3. Para IA avançada, use opção `4` (LLM-Enhanced)
+
+**Para Testes:**
+1. Use opção `5` para testar análise LLM
+2. Use opção `3` para otimização
+3. Use opção `8` para verificar sistema
+
+### **📁 **ARQUIVOS DO SISTEMA:**
+
+- `ea2060_simple_trader.py` - Versão básica
+- `ea2060_optimized_trader.py` - Versão otimizada ⭐
+- `ea2060_llm_enhanced.py` - Versão com IA 🤖
+- `ea2060_quick_backtest.py` - Backtest rápido
+- `ea2060_optimized.txt` - Parâmetros otimizados
+- `run_ea2060.py` - Menu principal 🎯
+
+### **🎯 **COMANDO FINAL RECOMENDADO:**
+
+```bash
+# Executar sistema otimizado na conta real
+python run_ea2060.py
+# Selecionar opção 2
+```
+
+OU diretamente:
+```bash
+# Executar versão otimizada
+python ea2060_optimized_trader.py
+```
+
+---
+
+**✅ SISTEMA PRONTO PARA USO!**

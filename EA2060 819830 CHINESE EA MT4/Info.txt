@@ -1,0 +1,34 @@
+﻿
+Working symbols: XAUUSD
+Working Timeframe: H1
+Min deposit: $1000
+Min leverage 1:500 MIN
+
+*Copy/paste all files of Indicators into MQL5 Indicator Folders.
+**Load EA into 1H Gold Chart, and Load set file.
+***(Ste399.set)>> is for 1k Balance account, (ST988)>> is for 100k Account
+
+#don't increase risk sIzie.
+##first test it on demo.
+
+
+
+
+
+
+
+UNLOCK EX4 / EX5
+DECOMPILE EX4 TO MQ4  250USD
+REMOVE ORDER COMMENT EX4 / EX5
+
+
+TELEGRAM CONTACT  
+@forex4s_net
+
+TELEGRAM CHANNEL
+https://t.me/forex4ycom
+
+WEBSITE
+www.forex4s.net
+
+

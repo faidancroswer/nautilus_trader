@@ -94,14 +94,45 @@ def open_position(symbol, direction, config):
     try:
         symbol_info = mt5.symbol_info(symbol)
         if not symbol_info:
+            logger.error(f"{symbol}: Symbol info not available")
             return
-        
+
+        # Verificações específicas para BTCUSD
+        if symbol == "BTCUSD":
+            # Verificar se trading está habilitado
+            if symbol_info.trade_mode == mt5.SYMBOL_TRADE_MODE_DISABLED:
+                logger.error(f"{symbol}: Trading disabled")
+                return
+            elif symbol_info.trade_mode == mt5.SYMBOL_TRADE_MODE_CLOSEONLY:
+                logger.error(f"{symbol}: Only close operations allowed")
+                return
+
+            # Verificar spread
+            if symbol_info.spread > 5000:  # Spread muito alto para Bitcoin
+                logger.warning(f"{symbol}: High spread {symbol_info.spread} points")
+
         if not symbol_info.visible:
-            mt5.symbol_select(symbol, True)
+            if not mt5.symbol_select(symbol, True):
+                logger.error(f"{symbol}: Cannot select symbol")
+                return
         
         tick = mt5.symbol_info_tick(symbol)
         if not tick:
+            logger.error(f"{symbol}: No tick data available")
             return
+
+        # Verificar e ajustar volume
+        volume = config["lot"]
+        if volume < symbol_info.volume_min:
+            volume = symbol_info.volume_min
+            logger.warning(f"{symbol}: Volume ajustado para mínimo: {volume}")
+        elif volume > symbol_info.volume_max:
+            volume = symbol_info.volume_max
+            logger.warning(f"{symbol}: Volume ajustado para máximo: {volume}")
+
+        # Ajustar volume para step
+        if symbol_info.volume_step > 0:
+            volume = round(volume / symbol_info.volume_step) * symbol_info.volume_step
         
         if direction == "BUY":
             price = tick.ask
@@ -133,7 +164,34 @@ def open_position(symbol, direction, config):
         if result and result.retcode == mt5.TRADE_RETCODE_DONE:
             logger.info(f"✓ {symbol} {direction} aberto")
         else:
-            logger.error(f"✗ Falha {symbol} {direction}")
+            # Log detalhado do erro
+            if result:
+                error_codes = {
+                    10004: "Requote",
+                    10006: "Request rejected",
+                    10007: "Too frequent requests",
+                    10013: "Market closed",
+                    10014: "Not enough money",
+                    10018: "Position closed",
+                    10019: "Invalid price",
+                    10020: "Invalid stops",
+                    10021: "Invalid lot",
+                    10027: "Trade timeout",
+                    10028: "Invalid volume"
+                }
+                error_desc = error_codes.get(result.retcode, f"Unknown error {result.retcode}")
+                logger.error(f"✗ Falha {symbol} {direction}: {error_desc} (Code: {result.retcode})")
+                logger.error(f"   Price: {price:.5f}, SL: {sl:.5f}, TP: {tp:.5f}, Volume: {config['lot']}")
+
+                # Verificar informações do símbolo
+                symbol_info = mt5.symbol_info(symbol)
+                if symbol_info:
+                    logger.error(f"   Min volume: {symbol_info.volume_min}, Max: {symbol_info.volume_max}")
+                    logger.error(f"   Volume step: {symbol_info.volume_step}")
+                    logger.error(f"   Spread: {symbol_info.spread} points")
+                    logger.error(f"   Trade mode: {symbol_info.trade_mode}")
+            else:
+                logger.error(f"✗ Falha {symbol} {direction}: No result from MT5")
             
     except Exception as e:
         logger.error(f"Erro ao abrir {symbol}: {e}")

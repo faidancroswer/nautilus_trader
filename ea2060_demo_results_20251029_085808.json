@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-10-29 08:58:08.131423",
+  "system_status": {
+    "mt5_connected": true,
+    "data_loaded": true
+  },
+  "backtest_metrics": {
+    "total_trades": 315,
+    "winning_trades": 93,
+    "losing_trades": 222,
+    "win_rate": 29.523809523809526,
+    "total_pnl": -3493.9214038688583,
+    "total_return": -34.93921403868858,
+    "avg_trade": -11.091813980536058,
+    "largest_win": 417.52900921838847,
+    "largest_loss": -364.5008344573448,
+    "avg_duration": 874.2857142857143,
+    "final_balance": 6506.078596131141
+  },
+  "llm_analysis": {
+    "action": "HOLD",
+    "confidence": 0.0,
+    "reasoning": "Analysis failed",
+    "sentiment": "neutral",
+    "risk": "medium"
+  },
+  "best_config": {
+    "ema_fast": 7,
+    "ema_slow": 21,
+    "risk": 0.03
+  },
+  "grade": "D (NEEDS IMPROVEMENT)"
+}

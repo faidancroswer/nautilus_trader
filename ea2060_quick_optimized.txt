@@ -1,0 +1,23 @@
+EA2060 Quick Optimization Results
+========================================
+
+Best Performance:
+  Return: -0.07%
+  Drawdown: 0.17%
+  Trades: 654
+  Win Rate: 44.0%
+
+Optimized Parameters:
+  ema_fast: 6
+  ema_slow: 18
+  sl_pips: 250
+  tp_pips: 300
+  risk_per_trade: 0.01
+  atr_period: 14
+  rsi_period: 14
+  rsi_oversold: 30
+  rsi_overbought: 70
+  st_multiplier: 2.0
+  volume_period: 20
+  volume_threshold: 1.0
+  min_score: 4
