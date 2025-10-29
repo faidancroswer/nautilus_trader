@@ -1,11 +1,16 @@
 {
   "permissions": {
     "allow": [
+<<<<<<< HEAD
       "Bash(pip install:*)",
       "Bash(jupyter nbconvert:*)",
       "Bash(python:*)",
       "Bash(timeout:*)",
       "Bash(dir:*)"
+=======
+      "Bash(python:*)",
+      "Bash(curl:*)"
+>>>>>>> 92934159697edc01296313be54d0f2970c2066ba
     ],
     "deny": [],
     "ask": []
