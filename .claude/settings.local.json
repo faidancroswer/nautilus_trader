@@ -1,16 +1,20 @@
 {
   "permissions": {
     "allow": [
-<<<<<<< HEAD
       "Bash(pip install:*)",
       "Bash(jupyter nbconvert:*)",
       "Bash(python:*)",
       "Bash(timeout:*)",
-      "Bash(dir:*)"
-=======
-      "Bash(python:*)",
-      "Bash(curl:*)"
->>>>>>> 92934159697edc01296313be54d0f2970c2066ba
+      "Bash(dir:*)",
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(conda:*)",
+      "Bash(start:*)",
+      "Bash(powershell:*)",
+      "Bash(C:\\Miniconda3\\Scripts\\conda.exe:*)",
+      "Bash(my_quant_labScriptsactivate:*)",
+      "Bash(call my_quant_labScriptsactivate.bat)"
     ],
     "deny": [],
     "ask": []
