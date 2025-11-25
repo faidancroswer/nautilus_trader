@@ -13,11 +13,14 @@ st.set_page_config(page_title="Painel de Controle BLW", layout="wide")
 # Constants
 MAGIC = 1147485642
 SYMBOL = "XAUUSD"
-STRATEGY_SCRIPT = "d:\\nautilus_trader\\blw_strategy.py"
-BACKTEST_SCRIPT = "d:\\nautilus_trader\\blw_backtest.py"
-OPTIMIZER_SCRIPT = "d:\\nautilus_trader\\blw_optimizer.py"
-PID_FILE = "strategy.pid"
-LOG_FILE = "strategy.log"
+
+# Dynamic Paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STRATEGY_SCRIPT = os.path.join(BASE_DIR, "blw_strategy.py")
+BACKTEST_SCRIPT = os.path.join(BASE_DIR, "blw_backtest.py")
+OPTIMIZER_SCRIPT = os.path.join(BASE_DIR, "blw_optimizer.py")
+PID_FILE = os.path.join(BASE_DIR, "strategy.pid")
+LOG_FILE = os.path.join(BASE_DIR, "strategy.log")
 
 # Initialize MT5
 if not mt5.initialize():
@@ -47,7 +50,7 @@ def start_strategy():
     # Open log file
     with open(LOG_FILE, "w") as log:
         # Start process
-        process = subprocess.Popen(["python", STRATEGY_SCRIPT], stdout=log, stderr=log, cwd="d:\\nautilus_trader", creationflags=subprocess.CREATE_NEW_CONSOLE)
+        process = subprocess.Popen(["python", STRATEGY_SCRIPT], stdout=log, stderr=log, cwd=BASE_DIR, creationflags=subprocess.CREATE_NEW_CONSOLE)
         
     with open(PID_FILE, "w") as f:
         f.write(str(process.pid))
@@ -155,13 +158,14 @@ with tab2:
     st.header("Backtest (Simulação)")
     if st.button("Executar Backtest"):
         with st.spinner("Rodando Backtest..."):
-            result = subprocess.run(["python", BACKTEST_SCRIPT], capture_output=True, text=True, cwd="d:\\nautilus_trader")
+            result = subprocess.run(["python", BACKTEST_SCRIPT], capture_output=True, text=True, cwd=BASE_DIR)
             st.text(result.stdout)
             if result.stderr:
                 st.error(result.stderr)
             
-            if os.path.exists("d:\\nautilus_trader\\backtest_result.png"):
-                st.image("d:\\nautilus_trader\\backtest_result.png", caption="Curva de Patrimônio")
+            img_path = os.path.join(BASE_DIR, "backtest_result.png")
+            if os.path.exists(img_path):
+                st.image(img_path, caption="Curva de Patrimônio")
 
 # --- Tab 3: Optimization ---
 with tab3:
@@ -171,7 +175,7 @@ with tab3:
         with st.spinner("Otimizando... (Isso pode demorar)"):
             # We use Popen to stream output or just run and wait
             # For simplicity, run and wait
-            result = subprocess.run(["python", OPTIMIZER_SCRIPT], capture_output=True, text=True, cwd="d:\\nautilus_trader")
+            result = subprocess.run(["python", OPTIMIZER_SCRIPT], capture_output=True, text=True, cwd=BASE_DIR)
             st.code(result.stdout)
             if result.stderr:
                 st.error(result.stderr)
