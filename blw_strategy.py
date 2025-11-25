@@ -34,6 +34,8 @@ EXT_DEPTH = 18
 EXT_DEVIATION = 5
 EXT_BACKSTEP = 3
 
+from blw_agent import RiskManager
+
 class BLWStrategy:
     def __init__(self):
         self.symbol = SYMBOL
@@ -42,9 +44,13 @@ class BLWStrategy:
         
         if not mt5.initialize():
             print("initialize() failed, error code =", mt5.last_error())
-            # quit() # Don't quit in backtest mode if MT5 not available
+            # quit() 
             
         print(f"Connected to MT5: {mt5.version()}")
+        
+        # Initialize AI Agent
+        self.agent = RiskManager(self.magic, self.symbol)
+        print("AI Risk Agent Initialized.")
 
     def get_data(self, bars=1000):
         rates = mt5.copy_rates_from_pos(self.symbol, self.timeframe, 0, bars)
@@ -182,10 +188,6 @@ class BLWStrategy:
         print(f"Signals at {df.iloc[-1]['time']}: {signals}")
         
         # Execution Logic
-        # We need to manage pending orders.
-        # 1. Delete existing pending orders for this magic number
-        # 2. Place new pending orders
-        
         if not mt5.terminal_info().trade_allowed:
             print("AutoTrading disabled in terminal")
             return
@@ -231,7 +233,7 @@ class BLWStrategy:
                 "tp": tp_buy,
                 "magic": self.magic,
                 "comment": "BLW Python Buy",
-                "type_time": mt5.ORDER_TIME_GTC, # Use GTC to avoid expiration errors
+                "type_time": mt5.ORDER_TIME_GTC, 
                 "type_filling": mt5.ORDER_FILLING_IOC,
             }
             
@@ -272,15 +274,27 @@ class BLWStrategy:
             print(f"Skipping Sell Stop: Price {sell_price} is not below Bid {bid}")
 
     def run(self):
-        print("Starting BLW Strategy...")
+        print("Starting BLW Strategy with AI Agent...")
+        last_learn_time = time.time()
+        
         while True:
-            df = self.get_data()
-            if df is not None:
-                self.check_trading_conditions(df)
-            # Sleep for 1 minute (H1 strategy doesn't need tick precision for signal generation usually, 
-            # but for pending order management we might want faster updates if price moves fast.
-            # MQ4 runs OnTick. We'll sleep 10 seconds.)
-            time.sleep(10)
+            # 1. AI Agent Management (Fast Loop)
+            self.agent.manage_positions()
+            
+            # 2. Strategy Logic (Every 10 seconds or new bar?)
+            # We can check conditions less frequently
+            if int(time.time()) % 10 == 0:
+                df = self.get_data()
+                if df is not None:
+                    self.check_trading_conditions(df)
+            
+            # 3. Learning (Every hour)
+            if time.time() - last_learn_time > 3600:
+                print("Running AI Learning...")
+                self.agent.learn()
+                last_learn_time = time.time()
+                
+            time.sleep(1) # Fast loop for risk management
 
 if __name__ == "__main__":
     strategy = BLWStrategy()

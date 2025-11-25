@@ -11,27 +11,36 @@ This document explains how to use the Python scripts converted from `blw-fixed.m
 ## How to Use
 
 ### 1. Prerequisites
-Ensure you have `MetaTrader5`, `pandas`, `numpy`, and `matplotlib` installed:
+Ensure you have `MetaTrader5`, `pandas`, `numpy`, `matplotlib`, `streamlit`, and `plotly` installed:
 ```bash
-pip install MetaTrader5 pandas numpy matplotlib
+pip install MetaTrader5 pandas numpy matplotlib streamlit plotly
 ```
 Ensure your MT5 terminal is open and logged into your FBS account.
 
-### 2. Optimization (Recommended First Step)
+### 2. Dashboard (New!)
+To monitor your strategy and control risk:
+```bash
+streamlit run d:\nautilus_trader\blw_dashboard.py
+```
+This will open a web interface where you can:
+- See live Balance/Equity.
+- View open positions.
+- **Emergency Close**: Click "CLOSE ALL POSITIONS" to liquidate everything.
+- View Equity Curve.
+
+### 3. AI Risk Agent (Integrated)
+The `blw_strategy.py` now includes an AI Agent that:
+- **Protects Profits**: Automatically moves StopLoss to BreakEven and trails price.
+- **Prevents Reversals**: Closes trades if they drop 40% from their max profit.
+- **Learns**: Analyzes trade history every hour to adjust trailing parameters.
+
+### 4. Optimization
 Run the optimizer to find the best parameters for XAUUSD H1:
 ```bash
 python d:\nautilus_trader\blw_optimizer.py
 ```
-This will test various combinations of StopLoss, TakeProfit, and ZigZag Depth and print the best configuration.
 
-### 3. Backtesting
-To run a detailed backtest with specific parameters (edit `blw_strategy.py` to set them first):
-```bash
-python d:\nautilus_trader\blw_backtest.py
-```
-This will generate an equity curve plot `backtest_result.png`.
-
-### 4. Live Trading
+### 5. Live Trading
 **WARNING**: This will execute real trades if your MT5 is connected to a real account.
 1. Open `blw_strategy.py`.
 2. Update the `Configuration` section with your optimized parameters.
@@ -40,6 +49,7 @@ This will generate an equity curve plot `backtest_result.png`.
 python d:\nautilus_trader\blw_strategy.py
 ```
 The script will loop, checking for signals every minute (sleeping 10s between checks) and managing Pending Orders (Buy Stop / Sell Stop).
+The AI Agent runs in the background to manage open positions.
 
 ## Strategy Logic
 - **Indicator**: ZigZag (Standard High/Low logic).
