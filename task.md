@@ -41,6 +41,10 @@
     - [x] Implement "Profit Protection" (Dynamic Trailing/BreakEven) <!-- id: 25 -->
     - [x] Implement "Learning Module" (Log analysis & Parameter adjustment) <!-- id: 26 -->
     - [x] Integrate Agent into `blw_strategy.py` <!-- id: 27 -->
+- [x] Integrate All into Dashboard <!-- id: 28 -->
+    - [x] Add "Trading" tab (Start/Stop Strategy Process) <!-- id: 29 -->
+    - [x] Add "Backtest" tab (Run Backtest & View Results) <!-- id: 30 -->
+    - [x] Add "Optimization" tab (Run Optimizer & View Output) <!-- id: 31 -->
 - [x] Develop Dashboard (Streamlit) <!-- id: 19 -->
     - [x] Create `blw_dashboard.py` layout <!-- id: 20 -->
     - [x] Connect dashboard to MT5 account data <!-- id: 21 -->

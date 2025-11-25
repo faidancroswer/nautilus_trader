@@ -1,8 +1,12 @@
+import sys
 import MetaTrader5 as mt5
 import pandas as pd
 import numpy as np
 import time
 from datetime import datetime
+
+# Force unbuffered output for Dashboard logs
+sys.stdout.reconfigure(line_buffering=True)
 
 # --- Configuration ---
 SYMBOL = "XAUUSD"

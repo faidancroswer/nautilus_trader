@@ -17,39 +17,33 @@ pip install MetaTrader5 pandas numpy matplotlib streamlit plotly
 ```
 Ensure your MT5 terminal is open and logged into your FBS account.
 
-### 2. Dashboard (New!)
-To monitor your strategy and control risk:
+### 2. Dashboard (Painel de Controle)
+Para monitorar e controlar tudo em um só lugar:
 ```bash
 streamlit run d:\nautilus_trader\blw_dashboard.py
 ```
-This will open a web interface where you can:
-- See live Balance/Equity.
-- View open positions.
-- **Emergency Close**: Click "CLOSE ALL POSITIONS" to liquidate everything.
-- View Equity Curve.
+Isso abrirá uma interface web com 3 abas:
+1.  **Negociação ao Vivo**:
+    - Botão **INICIAR ROBÔ**: Começa a operar.
+    - Botão **PARAR ROBÔ**: Para a operação.
+    - Botão **FECHAR TUDO**: Zera todas as posições imediatamente.
+    - Monitor de Saldo e Logs ao vivo.
+2.  **Backtest**:
+    - Botão **Executar Backtest**: Roda a simulação e mostra o gráfico de lucro.
+3.  **Otimização**:
+    - Botão **Iniciar Otimização**: Busca os melhores parâmetros automaticamente.
 
-### 3. AI Risk Agent (Integrated)
-The `blw_strategy.py` now includes an AI Agent that:
-- **Protects Profits**: Automatically moves StopLoss to BreakEven and trails price.
-- **Prevents Reversals**: Closes trades if they drop 40% from their max profit.
-- **Learns**: Analyzes trade history every hour to adjust trailing parameters.
+### 3. Agente de Risco (Integrado)
+O robô (`blw_strategy.py`) já inclui o Agente de IA que:
+- **Protege Lucros**: Move StopLoss para BreakEven e faz Trailing Stop.
+- **Evita Reversões**: Fecha se o lucro cair 40% do topo.
+- **Aprende**: Analisa o histórico a cada hora.
 
-### 4. Optimization
-Run the optimizer to find the best parameters for XAUUSD H1:
-```bash
-python d:\nautilus_trader\blw_optimizer.py
-```
-
-### 5. Live Trading
-**WARNING**: This will execute real trades if your MT5 is connected to a real account.
-1. Open `blw_strategy.py`.
-2. Update the `Configuration` section with your optimized parameters.
-3. Run the script:
-```bash
-python d:\nautilus_trader\blw_strategy.py
-```
-The script will loop, checking for signals every minute (sleeping 10s between checks) and managing Pending Orders (Buy Stop / Sell Stop).
-The AI Agent runs in the background to manage open positions.
+### 4. Execução Manual (Opcional)
+Se não quiser usar o Dashboard, você pode rodar os scripts individualmente:
+- **Otimizar**: `python d:\nautilus_trader\blw_optimizer.py`
+- **Backtest**: `python d:\nautilus_trader\blw_backtest.py`
+- **Negociar**: `python d:\nautilus_trader\blw_strategy.py`
 
 ## Strategy Logic
 - **Indicator**: ZigZag (Standard High/Low logic).

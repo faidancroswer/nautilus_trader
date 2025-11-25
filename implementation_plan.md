@@ -33,11 +33,20 @@ Create a control dashboard for the BLW Strategy and implement an "AI Risk Agent"
         - Logs every trade's lifecycle (Entry, Max Profit, Exit, Reason).
         - `optimize_parameters()`: Analyzes the log to suggest better X% and Y% values based on "what if" scenarios.
 
-### Strategy Integration
-#### [MODIFY] [blw_strategy.py](file:///d:/nautilus_trader/blw_strategy.py)
-- Import and initialize `RiskManager`.
-- Call `RiskManager.manage_positions()` inside the main loop.
-- Export trade data to `trade_history.csv` for the Dashboard and Agent to read.
+### Dashboard Integration (Unified Control)
+#### [MODIFY] [blw_dashboard.py](file:///d:/nautilus_trader/blw_dashboard.py)
+- **Structure**: Use `st.tabs` to separate functionality: "Live Trading", "Backtest", "Optimization".
+- **Live Trading Tab**:
+    - **Process Management**: Use `subprocess.Popen` to start `blw_strategy.py` in the background.
+    - **State Tracking**: Save PID to a file (`strategy.pid`) to know if it's running.
+    - **Logs**: Read `strategy.log` (redirected stdout) to show live logs in the dashboard.
+- **Backtest Tab**:
+    - **Input**: Allow selecting Date Range (optional) or just "Run Default".
+    - **Action**: Run `blw_backtest.py`.
+    - **Output**: Display `backtest_result.png` and the final balance text.
+- **Optimization Tab**:
+    - **Action**: Run `blw_optimizer.py`.
+    - **Output**: Stream the output text to show progress and final best params.
 
 ## Verification Plan
 
@@ -45,5 +54,9 @@ Create a control dashboard for the BLW Strategy and implement an "AI Risk Agent"
 - **Agent Logic**: Unit tests for `RiskManager` to verify it triggers BreakEven/Trailing correctly on mock data.
 
 ### Manual Verification
-- **Dashboard**: Run `streamlit run blw_dashboard.py` and verify it shows live MT5 data.
+- **Dashboard**: 
+    - Click "Start Trading" -> Verify `python blw_strategy.py` process starts.
+    - Click "Stop Trading" -> Verify process ends.
+    - Click "Run Backtest" -> Verify image appears.
+    - Click "Optimize" -> Verify text output appears.
 - **Agent**: Open a demo trade and observe if the Agent modifies the SL/TP as price moves.
