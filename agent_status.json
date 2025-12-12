@@ -1,0 +1,19 @@
+{
+    "timestamp": "2025-12-04T07:19:10.432440",
+    "symbol": "XAUUSD",
+    "parameters": {
+        "sl_multiplier": 1.5,
+        "tp_multiplier": 5.0,
+        "current_regime": "High",
+        "profit_lock_percent": 0.4
+    },
+    "market_status": {
+        "atr": 1133.5714285714273,
+        "atr_threshold": 200,
+        "is_volatility_ok": true,
+        "is_time_ok": true,
+        "current_hour": 14
+    },
+    "active_tracking": 21,
+    "learning_history_size": 0
+}

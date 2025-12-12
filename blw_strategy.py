@@ -5,11 +5,17 @@ import numpy as np
 import time
 from datetime import datetime
 
+import argparse
+
 # Force unbuffered output for Dashboard logs
 sys.stdout.reconfigure(line_buffering=True)
 
 # --- Configuration ---
-SYMBOL = "XAUUSD"
+# Defaults
+DEFAULT_SYMBOL = "XAUUSD"
+DEFAULT_VOLUME = 0.01
+
+SYMBOL = DEFAULT_SYMBOL
 TIMEFRAME = mt5.TIMEFRAME_H1
 MAGIC = 1147485642
 DEVIATION = 20
@@ -17,17 +23,17 @@ DEVIATION = 20
 # Strategy Parameters (Default from MQ4)
 RISK_PERCENT = 1.0
 LOT_VAR = 1  # 0: FixLot, 1: AutoLot (Risk %), 2: Balance Step
-FIX_LOT = 0.01
+FIX_LOT = DEFAULT_VOLUME
 BREAK_EVEN = 1000  # Points
 MIN_PROFIT = 500   # Points
 TRAILING_STOP = 1000 # Points
-STOP_LOSS = 3000     # Points
-TAKE_PROFIT = 10000  # Points
+STOP_LOSS = 500      # Optimized (was 3000)
+TAKE_PROFIT = 3000   # Optimized (was 10000)
 MAX_SPREAD = 30      # Points
 ROLL_BACK = 1000     # Points
 INDENT = 0           # Points
-START_HOUR = 0
-END_HOUR = 23
+START_HOUR = 8
+END_HOUR = 20
 USE_SMART_TP = True
 SMART_TP_DOLLARS = 10.0
 USE_MAX_DD = True
@@ -41,16 +47,23 @@ EXT_BACKSTEP = 3
 from blw_agent import RiskManager
 
 class BLWStrategy:
-    def __init__(self):
-        self.symbol = SYMBOL
+    def __init__(self, symbol=DEFAULT_SYMBOL, volume=DEFAULT_VOLUME):
+        self.symbol = symbol
+        self.volume = volume
         self.timeframe = TIMEFRAME
         self.magic = MAGIC
+        
+        # Update Global FIX_LOT for logic usage
+        global FIX_LOT, SYMBOL
+        FIX_LOT = self.volume
+        SYMBOL = self.symbol
         
         if not mt5.initialize():
             print("initialize() failed, error code =", mt5.last_error())
             # quit() 
             
         print(f"Connected to MT5: {mt5.version()}")
+        print(f"Strategy initialized for {self.symbol} with Lot Size {self.volume}")
         
         # Initialize AI Agent
         self.agent = RiskManager(self.magic, self.symbol)
@@ -148,11 +161,50 @@ class BLWStrategy:
         
         return last_zz, prev_zz
 
+    def calculate_atr(self, df, period=14):
+        high = df['high']
+        low = df['low']
+        close = df['close']
+        
+        tr1 = high - low
+        tr2 = abs(high - close.shift())
+        tr3 = abs(low - close.shift())
+        
+        tr = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
+        atr = tr.rolling(window=period).mean()
+        return atr
+
     def get_signal(self, df):
         """
         Generates trading signals based on ZigZag.
         Returns: (signal_type, price, sl, tp) or None
         """
+        # 1. Time Filter
+        current_time = df.iloc[-1]['time']
+        is_time_ok = START_HOUR <= current_time.hour <= END_HOUR
+        
+        # 2. Volatility Filter (ATR)
+        atr = self.calculate_atr(df, period=14)
+        current_atr = atr.iloc[-1]
+        atr_points = current_atr / self.point(df)
+        MIN_ATR = 200 
+        is_volatility_ok = atr_points >= MIN_ATR
+        
+        # Update Agent Status
+        self.agent.update_market_status(
+            atr=float(atr_points),
+            threshold=MIN_ATR,
+            vol_ok=bool(is_volatility_ok),
+            time_ok=bool(is_time_ok),
+            hour=current_time.hour
+        )
+
+        if not is_time_ok:
+            return None
+
+        if not is_volatility_ok:
+            return None
+
         df = self.calculate_zigzag(df, EXT_DEPTH, EXT_DEVIATION, EXT_BACKSTEP)
         last_zz, prev_zz = self.get_last_zigzag_values(df)
         
@@ -175,13 +227,17 @@ class BLWStrategy:
         buy_price = high_val + INDENT * point
         sell_price = low_val - INDENT * point
         
+        # Use Agent's dynamic parameters (ATR-based)
+        sl_points = self.agent.get_dynamic_sl(atr_points)
+        tp_points = self.agent.get_dynamic_tp(atr_points)
+        
         return {
             'buy_stop': buy_price,
             'sell_stop': sell_price,
-            'sl_buy': buy_price - STOP_LOSS * point if STOP_LOSS > 0 else 0,
-            'tp_buy': buy_price + TAKE_PROFIT * point if TAKE_PROFIT > 0 else 0,
-            'sl_sell': sell_price + STOP_LOSS * point if STOP_LOSS > 0 else 0,
-            'tp_sell': sell_price - TAKE_PROFIT * point if TAKE_PROFIT > 0 else 0
+            'sl_buy': buy_price - sl_points * point if sl_points > 0 else 0,
+            'tp_buy': buy_price + tp_points * point if tp_points > 0 else 0,
+            'sl_sell': sell_price + sl_points * point if sl_points > 0 else 0,
+            'tp_sell': sell_price - tp_points * point if tp_points > 0 else 0
         }
 
     def check_trading_conditions(self, df):
@@ -301,5 +357,11 @@ class BLWStrategy:
             time.sleep(1) # Fast loop for risk management
 
 if __name__ == "__main__":
-    strategy = BLWStrategy()
+    parser = argparse.ArgumentParser(description='BLW Strategy')
+    parser.add_argument('--symbol', type=str, default=DEFAULT_SYMBOL, help='Trading Symbol (e.g., XAUUSD)')
+    parser.add_argument('--volume', type=float, default=DEFAULT_VOLUME, help='Lot Size (e.g., 0.01)')
+    
+    args = parser.parse_args()
+    
+    strategy = BLWStrategy(symbol=args.symbol, volume=args.volume)
     strategy.run()

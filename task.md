@@ -53,3 +53,32 @@
     - [x] Create `blw_dashboard.py` layout <!-- id: 20 -->
     - [x] Connect dashboard to MT5 account data <!-- id: 21 -->
     - [x] Implement controls (Start/Stop, Close All) <!-- id: 22 -->
+
+# Task: Debugging & Maintenance <!-- id: 32 -->
+- [x] Fix `blw_dashboard.py` startup errors <!-- id: 33 -->
+- [x] Fix Dashboard Monitoring (Balance/Positions) <!-- id: 57 -->
+# Task: Optimization & Agent Tuning <!-- id: 34 -->
+- [x] Optimize for XAUUSD (0.05 Lot) <!-- id: 35 -->
+    - [x] Expand `blw_optimizer.py` ranges <!-- id: 36 -->
+    - [x] Run optimization to find best SL/TP/ZigZag <!-- id: 37 -->
+    - [x] Update `blw_strategy.py` with new defaults <!-- id: 38 -->
+- [x] Enhance AI Agent <!-- id: 39 -->
+    - [x] Verify if Agent adjusts SL/TP <!-- id: 40 -->
+    - [x] Implement SL/TP adjustment in Agent if missing <!-- id: 41 -->
+
+# Task: Volatility Filter & Profit Optimization <!-- id: 42 -->
+- [x] Implement Volatility Filter <!-- id: 43 -->
+    - [x] Add ATR indicator to `blw_strategy.py` <!-- id: 44 -->
+    - [x] Add logic to skip trades if ATR is low <!-- id: 45 -->
+    - [x] Add Time Filter (Start/End Hour) <!-- id: 46 -->
+- [x] Optimize with Filters <!-- id: 47 -->
+    - [x] Run backtest to verify filter effectiveness <!-- id: 48 -->
+    - [x] Optimize ATR threshold and Time Window <!-- id: 49 -->
+
+# Task: Advanced Agent Upgrade (Dynamic Risk) <!-- id: 50 -->
+- [x] Implement ATR-based Risk Management <!-- id: 51 -->
+    - [x] Replace fixed SL/TP with Multipliers in `blw_agent.py` <!-- id: 52 -->
+    - [x] Implement Regime-Based Learning (Low/Normal/High Volatility) <!-- id: 53 -->
+    - [x] Update `blw_strategy.py` to use dynamic parameters <!-- id: 54 -->
+- [x] Update Dashboard <!-- id: 55 -->
+    - [x] Display Regime and Multipliers in Agent Monitor <!-- id: 56 -->

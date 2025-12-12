@@ -135,8 +135,14 @@ class Backtester:
             
         return balance
 
+import argparse
+
 if __name__ == "__main__":
-    strategy = BLWStrategy()
+    parser = argparse.ArgumentParser(description='BLW Backtester')
+    parser.add_argument('--symbol', type=str, default="XAUUSD", help='Trading Symbol')
+    args = parser.parse_args()
+
+    strategy = BLWStrategy(symbol=args.symbol)
     backtester = Backtester(strategy)
     backtester.fetch_data_from_mt5(1000) # Fetch 1000 bars
     backtester.run_backtest()

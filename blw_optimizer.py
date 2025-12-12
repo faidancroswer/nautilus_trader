@@ -5,8 +5,8 @@ from blw_backtest import Backtester
 import MetaTrader5 as mt5
 
 class Optimizer:
-    def __init__(self):
-        self.strategy = BLWStrategy()
+    def __init__(self, symbol="XAUUSD"):
+        self.strategy = BLWStrategy(symbol=symbol)
         self.data = None
         
     def load_data(self, bars=5000):
@@ -22,9 +22,10 @@ class Optimizer:
                 return
 
         # Parameter Ranges
-        sl_range = [1000, 2000, 3000]
-        tp_range = [2000, 5000, 10000]
-        depth_range = [12, 18, 24]
+        # Parameter Ranges
+        sl_range = [500, 1000, 1500, 2000, 3000]
+        tp_range = [1000, 2000, 3000, 5000, 10000]
+        depth_range = [6, 12, 18, 24, 36]
         
         combinations = list(itertools.product(sl_range, tp_range, depth_range))
         print(f"Testing {len(combinations)} combinations...")
@@ -79,7 +80,14 @@ class Optimizer:
         # Use the refactored backtester
         return backtester.run_backtest(silent=True)
 
+import argparse
+
 if __name__ == "__main__":
     import blw_strategy # Import to modify globals
-    opt = Optimizer()
+    
+    parser = argparse.ArgumentParser(description='BLW Optimizer')
+    parser.add_argument('--symbol', type=str, default="XAUUSD", help='Trading Symbol')
+    args = parser.parse_args()
+    
+    opt = Optimizer(symbol=args.symbol)
     opt.run_optimization()
