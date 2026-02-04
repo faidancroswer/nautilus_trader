@@ -1,0 +1,811 @@
+
+0:13
+Começando mais um vídeo da nossa série
+0:15
+de operações manuais. Esse já é o vídeo
+0:17
+de número 20, pessoal. E antes de
+0:20
+mostrar aqui a estratégia, novamente
+0:23
+falar sobre as operações que estão
+0:25
+abertas, sobre rebaixamento da conta e,
+0:28
+claro, o lucro que já tivemos nessa
+0:30
+conta, vamos recapitular aqui para quem
+0:33
+tá chegando agora no canal, né? Eh, qual
+0:36
+que era a meta para essa conta? Então já
+0:38
+aproveita aí, pessoal, ó, deixa um like,
+0:41
+se inscreva no canal aí para ajudar o
+0:42
+nosso trabalho. Qualquer dúvida, deixe
+0:44
+nos comentários abaixo aqui do vídeo.
+0:47
+Então, a gente começou essa série,
+0:48
+pessoal, foi aqui, ó, e há mais de 9
+0:53
+meses atrás, tá? Então, ó, operação
+0:56
+manual rumo ao meio milhão. Então, quem
+0:59
+acompanhou aí esses últimos 19 vídeos da
+1:02
+série, tá? Recomendo vocês acessarem
+1:06
+aqui as nossas playlists do canal
+1:08
+também, porque aí você pega a série
+1:10
+desde o início, aí você vai ver qual que
+1:11
+é o gerenciamento, todos os detalhes,
+1:14
+né, como eu cheguei a esse saldo na
+1:17
+conta desde o início. Então, e essa
+1:20
+série já roda aí há mais de 9 meses, né,
+1:23
+porém essa conta eu já opero nela, né,
+1:25
+operava em off há mais de um ano. Quando
+1:28
+a conta ficou com o rebaixamento ali a
+1:30
+mais ou menos 40%, 30%, não lembro
+1:34
+direito agora, eu resolvi é criar uma
+1:37
+série no canal para mostrar para vocês
+1:38
+como que eu faço para sair do
+1:41
+rebaixamento usando head na conta sem
+1:44
+usar stop loss. Então tem todos os
+1:47
+detalhes, tá? Tá aqui a série, né, a
+1:49
+playlist completa aí para vocês. E tem
+1:52
+outras séries aqui do canal também para
+1:53
+quem quiser acompanhar, né? Não é só eh
+1:56
+operações manuais de conta com saldo
+1:59
+grande, tem contas também com saldo
+2:01
+menores, né, em conta centrade
+2:04
+aqui também na Robo Forex, eh, série do
+2:07
+Bitcoin, tudo certinho para vocês. E se
+2:09
+você tá chegando agora no mercado, já se
+2:12
+interessou pelo assunto, temos também
+2:14
+aqui o nosso curso gratuito de Forex,
+2:18
+tá? Tá aqui, ó. Tem também aí um curso
+2:21
+gratuito de robôs, tá? Câmera tá bem em
+2:24
+cima aqui, ó. Tá aqui, ó, aula eh sobre
+2:27
+robôs de Forex, tudo gratuito para
+2:29
+vocês. E, claro, tem o nosso grupo de
+2:32
+apoio lá no Telegram, onde vocês podem
+2:34
+baixar todos os robôs aqui do canal,
+2:37
+conversar sobre o mercado, sobre
+2:39
+corretoras. O link do grupo está aqui na
+2:42
+descrição do vídeo. Então, a nossa meta
+2:45
+aí inicial, pessoal, como eu falei para
+2:46
+vocês, era de Rio milhão deais. A gente
+2:50
+começou essa conta com 40.000, 000, que
+2:53
+dá mais ou menos R$ 200.000,
+2:56
+né? E depois que eu bati essa meta, aí
+2:59
+eu resolvi continuar a série porque teve
+3:03
+muitos pedidos. Eu estava lendo, né, os
+3:06
+comentários de vocês aí. Tem vários
+3:08
+vídeos, né, no começo da série que eu
+3:10
+lia os comentários e durante o vídeo,
+3:12
+né? Então, o nome da maioria das pessoas
+3:15
+que comentava ali apareceu aí nos
+3:18
+últimos vídeos, né? Então, pessoal, eh,
+3:22
+como a gente continuou a série aí,
+3:24
+continuou com a conta, a nossa próxima
+3:27
+meta era de R$ 1 milhão deais. E
+3:30
+lembrando também que eu comecei com
+3:32
+40.000 e saquei 50.000. Vou mostrar isso
+3:36
+para vocês, todos os detalhes na conta
+3:38
+do Metatrader e também lá na MyFXBook.
+3:41
+Para quem não sabe, Myfxbook é um site
+3:44
+onde a gente consegue auditar as contas,
+3:46
+onde a gente comprova resultados. aí o
+3:49
+histórico completo da conta, né? Então
+3:51
+tem todos os detalhezinhos lá. Já vou
+3:53
+mostrar isso para vocês daqui a pouco
+3:55
+também. Então a nossa meta depois, né,
+3:58
+disso, mais ou menos aí uns 4 5 meses
+4:01
+atrás, né, que eu bati a meta ali de Rio
+4:02
+milhão deais, quanto será que eu tenho
+4:04
+na conta nesse momento, pessoal? Vamos
+4:07
+lá pro Metatrader agora. Mas é claro, é
+4:10
+antes de mostrar aqui o saldo da conta
+4:11
+nesse momento, quanto será que eu tinha
+4:14
+no último vídeo postado aqui no canal,
+4:17
+né? Deixei aqui já preparado para vocês,
+4:19
+né? Esse aqui é o último vídeo que eu
+4:22
+gravei aqui no canal. Então, olhem que o
+4:24
+saldo da conta estava com 154.000,
+4:28
+capital líquido 146
+4:31
+e tinha aí um flutuante, né, um
+4:33
+rebaixamento de 8.000,
+4:35
+tá? Então vamos ver quanto que tem na
+4:38
+conta nesse momento, pessoal. Esse aqui
+4:40
+é o rebaixamento nesse momento, tá? É um
+4:43
+pouco mais aí de $.000 000 de
+4:45
+rebaixamento, porém saldo total da conta
+4:49
+207.000,
+4:51
+capital líquido 187.
+4:55
+Então, se a gente depositou 40.000 na
+4:57
+corretora, depois a gente sacou 50, quer
+5:00
+dizer que hoje eu só opero com os lucros
+5:02
+aqui. Vocês sabem disso. Então, eu
+5:04
+depositei aqueles 40, quando chegou nos
+5:07
+90.000, eu saquei 50 e voltei a operar
+5:10
+apenas com 40, sendo que era apenas os
+5:13
+lucros, né? Então, de 40, saquei 50,
+5:16
+ainda saquei 10 a mais, que é o que a
+5:18
+gente vai somar aqui, ó. Então, capital
+5:20
+líquido 187.000, quase 188.000 aí mais
+5:25
+os 10 que eu já saquei, né? Então,
+5:28
+197.000, pessoal. Tá aqui o último
+5:31
+saque, né? É de 50.000. Então, tem aqui,
+5:34
+ó, depósito 40.080
+5:38
+e lucro é bruto 217.000.
+5:42
+Só que a gente leva em consideração o
+5:44
+capital líquido aqui da conta, tá? Eh,
+5:47
+vou mostrar lá na Myfax Book para vocês
+5:49
+também agora e depois eu volto aqui e
+5:52
+falo sobre as operações e comento um
+5:55
+pouco sobre a estratégia, se eu estou
+5:57
+mantendo a mesma estratégia lá do começo
+5:59
+da conta, do começo da série aqui no
+6:02
+canal. Vamos agora lá para My Effects
+6:05
+Book. E uma novidade que eu tenho também
+6:07
+para falar para vocês que na próxima
+6:08
+semana eu vou dar o start da nossa conta
+6:11
+pan aqui do canal, que o pessoal pediu
+6:14
+bastante, né, para seguir as minhas
+6:16
+estratégias. Então eu vou juntar a
+6:18
+estratégia aqui de operações manuais com
+6:22
+alguns robôs que eu utilizo aqui em off,
+6:25
+né? Então vou juntar ali tudo que eu
+6:27
+tenho de melhor e criar essa conta PAN
+6:30
+para vocês. Na verdade eu já criei, né?
+6:32
+Eu estava fazendo vários testes em
+6:34
+algumas corretoras aí e agora cheguei à
+6:36
+conclusão qual corretora eu vou usar.
+6:38
+Então, no próximo vídeo vou falar para
+6:40
+vocês qual que é a corretora, capital
+6:42
+mínimo para entrar, qual que é o link
+6:44
+para vocês acessarem, né, para abrir
+6:47
+essa conta. Vou falar todos os detalhes,
+6:50
+possivelmente já no próximo vídeo aqui
+6:52
+no canal, então fiquem atentos aí, tá?
+6:56
+Eh, tem até alguns spoilers aqui, né, de
+6:59
+alguns testes aí, alguns resultados que
+7:01
+eu já obtive. Então, aqui seguindo, né,
+7:04
+aqui na nossa conta de operações
+7:07
+manuais, eh, é uma conta ECN, né, lá na
+7:11
+corretora do Prime. Então, o lucro bruto
+7:15
+que tivemos aqui nessa conta, pessoal,
+7:16
+que é o ganho absoluto, foi de 711%,
+7:20
+tá? Então, teve todo esse crescimento aí
+7:22
+da conta. Eh, aqui em saldo, ó, eh, tem
+7:25
+aqui o saque que fizemos, né? E aqui o
+7:30
+depósito que fizemos na conta de 40.080.
+7:34
+E olha uma coisa interessante que eu
+7:35
+queria mostrar para vocês. Eh, o
+7:38
+rebaixamento maior que tivemos aqui na
+7:40
+conta foi de 60%, quando a conta estava
+7:43
+ainda com 40 e poucos mil quando eu
+7:45
+comecei em off. Então eu operava ali a
+7:49
+mesma estratégia que eu opero hoje, né,
+7:50
+com o mesmo eh valor de lote também, que
+7:53
+eu quero explicar um pouco mais para
+7:55
+vocês daqui a pouco sobre essa questão.
+7:57
+Por que que eu não aumento os lotes
+7:59
+mesmo a conta estando aí eh cinco vezes
+8:02
+maior, né? Por que eu uso o mesmo valor
+8:05
+de lote inicial nas minhas operações
+8:06
+aqui? Então, lá no começo, quando a
+8:08
+conta era menor, cheguei a esse
+8:10
+rebaixamento de 60%. Depois a conta foi
+8:13
+crescendo e olha o rebaixamento da conta
+8:15
+como que diminuiu, pessoal, nos últimos
+8:17
+meses aí, ó, desde lá de eh junho, mais
+8:21
+ou menos, né, rebaixamento máximo que
+8:23
+chegou aí foi de 15%. Então, tive um
+8:27
+crescimento muito alto na conta e
+8:29
+mantive esse rebaixamento bem pequeno,
+8:31
+né? Então, bem pé no chão aí as
+8:33
+estratégias, né? Então, tá aqui, né? Ã,
+8:37
+uma média, né, mensal aí de 22%.
+8:40
+Isso aqui não quer dizer que eu vou
+8:42
+sempre fazer isso, tá, pessoal? É muito
+8:44
+difícil manter por um longo período, né?
+8:47
+Apesar que já faz mais de um ano que eu
+8:48
+opero nessa conta. Então, antes que as
+8:50
+pessoas perguntem sobre a conta PAN, se
+8:52
+eu vou fazer essa lucratividade, ninguém
+8:55
+sabe, né? Porque isso aqui é uma renda
+8:57
+variável. Então eu posso fazer aí 10%,
+9:00
+como eu posso fazer 3% ou às vezes ficar
+9:03
+no negativo também, tá? Então tem aqui,
+9:06
+ó, depósitos e saques da conta, né? Eh,
+9:09
+lucro líquido aqui de 226.000. Só que
+9:12
+isso aqui eu acho que deu uma bugada,
+9:14
+pessoal. Foi é 10 a menos aqui, tá? Eh,
+9:17
+216,
+9:19
+né? Que é aquilo que eu mostrei para
+9:21
+vocês. 217, aliás, né? Que é o que está
+9:23
+no Metatrader, que lá sim é o lucro real
+9:26
+aí da conta. Então, saldo atual aí de
+9:29
+207.000, que é aquilo que vocês viram
+9:31
+lá, né? Patrimônio, que é o capital
+9:33
+líquido, 186.000, né? Mas como eu falei
+9:36
+para vocês aí, eu saquei 10 a mais do
+9:39
+que o depósito, certo? Mostrar aqui nos
+9:42
+gráficos para vocês, né? Tá aqui, ó,
+9:45
+rebaixamento da conta nesse momento, né?
+9:48
+Eh, então, no mês aqui de janeiro de
+9:50
+2026 já fiz 34%, pessoal. Isso aqui está
+9:54
+altíssimo nessa porcentagem. E no ano aí
+9:57
+de 2025, foi quando a gente começou essa
+9:59
+conta lá em janeiro, então eu fiz aí
+10:02
+aquela média de 20, 22%, né? Então, o
+10:05
+mês que eu fiz uma lucratividade maior
+10:07
+foi 41%,
+10:09
+tá? E o mês que fiz menos aqui foi 6% na
+10:14
+conta. Como é um capital meu, pessoal,
+10:16
+que eu posso arriscar, é por isso que eu
+10:18
+faço um lucro maior, porque eu posso
+10:20
+estar arriscando, né? Agora, eh, por
+10:23
+exemplo, na conta pan, como vai ter um
+10:25
+capital aí meu e um capital do pessoal,
+10:28
+tudo junto, agrupado em uma conta só,
+10:30
+então ali eu tenho que tomar muito mais
+10:32
+cuidado, né? Então, por isso que eu vou
+10:33
+tentar arriscar menos, né? E lógico vai
+10:36
+ter uma lucratividade menor também.
+10:39
+Então esse aqui são os resultados aí do
+10:41
+ano de 2025, né? E começamos aí já em
+10:44
+2026 com o pé direito aqui nessa conta,
+10:47
+né?
+10:49
+E vamos ver quanto que dá isso, pessoal.
+10:51
+Será que já batemos aí aquele 1 milhão
+10:54
+de lucro aqui na conta? Então, 186.000
+10:57
+Nesse momento líquido. Vamos ver aqui.
+11:00
+Nesse momento, ã, então a conta com
+11:03
+187.300
+11:06
+mais aqueles 10 que eu saquei a mais,
+11:08
+né, lá no começo. Então dá 197.000.
+11:13
+Vamos ver isso no dólar hoje, quanto que
+11:15
+dá. Eh, dólar caiu bastante, né? 5,18
+11:20
+nesse momento. Então, 197.000
+11:25
+dá
+11:26
+R 1.20,
+11:29
+pessoal. Então, já batemos a nossa meta
+11:32
+aí de fazer R 1 milhão deais nessa
+11:34
+conta. Quem quiser seguir aí, ver todos
+11:36
+os detalhes, é só pesquisar por Mr.
+11:39
+Johnny 1 aqui dentro do site da
+11:41
+MyFXBook, tá? E como a gente já bateu a
+11:45
+meta, pessoal, a minha ideia é retirar
+11:47
+aqui quase todo o capital da conta,
+11:49
+deixar ali uns 10, 20.000 000 e colocar
+11:52
+um robô, porque como eu vou começar
+11:54
+agora a focar mais na conta pan, eu não
+11:57
+vou ter tempo para ficar olhando duas
+11:59
+contas, duas contas altas, né, por
+12:01
+exemplo. Então eu vou colocar um robô
+12:04
+aqui com capital menor e depois o saldo
+12:06
+aí eu reinvisto em outro lugar, né?
+12:09
+Então, voltando aqui pro Metatrader,
+12:11
+pessoal, vamos falar um pouco aqui sobre
+12:13
+as estratégias, né, sobre essas ordens
+12:16
+que estão abertas aí. Então, nesse
+12:18
+momento, temos aqui quatro operações
+12:20
+abertas de venda no Eurosdown
+12:25
+Jones temos cinco operações e de compra,
+12:29
+tá? Então, seguindo a mesma estratégia
+12:32
+desde o início, eh, que a gente opera
+12:34
+aqui no Euro SD, a gente busca o
+12:37
+equilíbrio do mercado. Então, eu tracei
+12:39
+aqui essa linha no topo, é, dos últimos
+12:43
+anos aí do mercado e uma outra linha
+12:46
+aqui no fundo, tá? E essa linha do meio,
+12:49
+ela é o centro de tudo aí das duas
+12:51
+linhas, tá? Então, sempre busco o
+12:54
+equilíbrio aqui. Então, eu estou
+12:56
+operando só vendido aqui nesse momento,
+12:58
+tá? no Eurosd, esperando ele voltar aqui
+13:02
+pra linha de equilíbrio. E quando isso
+13:04
+dá errado, eu começo a abrir R, né, que
+13:07
+é fazer operações ao contrário. Então,
+13:09
+se eu estou entrando aqui vendido e o
+13:12
+mercado for lá para cima, eu começo a
+13:13
+abrir compras e eu não abro compra de
+13:16
+red para travar toda a conta. Eu vou
+13:17
+abrindo é parcialmente, né? Então, abro
+13:21
+a primeira ordem de um lote, a segunda
+13:23
+de mais um lote e assim por diante. E
+13:25
+conforme eu vou fazendo lucros com esses
+13:27
+red, eu vou fechando ordens mais é
+13:30
+antigas. Por exemplo, as duas mais
+13:33
+próximas do preço é de um lote. E essas
+13:36
+duas mais antigas, ó, tem um 0.50
+13:39
+e uma de 0.40. Aqui são operações, né,
+13:43
+ordens mais antigas que eu já comecei eh
+13:46
+comer partes delas, né? Então eu vou
+13:49
+sempre tentando eh ficar aqui com as
+13:52
+operações mais próximas do preço
+13:54
+possível, pessoal. E aqui no Down Jones
+13:58
+eh eu uso aqui essa média móvel de 20
+14:02
+períodos, né, para tá olhando aqui
+14:04
+também essa questão de equilíbrio,
+14:06
+desequilíbrio de mercado. Só que aqui eu
+14:08
+opero o inverso. Então ao invés de eu
+14:10
+operar aqui nesse momento, como o preço
+14:13
+está acima da linha, né, ou a linha
+14:15
+abaixo do preço, tanto faz. Aí eu estou
+14:18
+operando só comprado, né? Porque a
+14:20
+tendência é de alta e a gente sabe que
+14:23
+esses ativos eh de índices americanos,
+14:26
+né, Down Jones, S&P500, eles têm aí eh
+14:30
+uma alta muito grande, né? Se você olhar
+14:32
+o histórico completo, é um ativo que só
+14:35
+sobe, às vezes corrige um pouco, depois
+14:37
+volta a subir de novo. Então, sempre
+14:40
+quando está acima dessa média móvel de
+14:42
+20 períodos, né, média móvel semanal, eu
+14:45
+fico só operando comprado aqui. E a
+14:48
+mesma estratégia de R. Se começar a
+14:50
+descer muito aqui, eu tô abrindo no
+14:52
+máximo cinco operações de compra. Passou
+14:55
+disso, desceu mais, eu começo já a abrir
+14:58
+vendas, tá? E aqui eu abro 0.50.
+15:02
+Aqui, ó, 0.50,
+15:04
+tudo comprado. Se eu precisar abrir R,
+15:06
+eu vou abrir o primeiro de 0.50 também.
+15:09
+Se o mercado continuar descendo, abro
+15:10
+mais um. E depois, né, lógico, se tiver
+15:13
+com dois RS aberto e cinco de compra,
+15:16
+mercado começar a voltar, eu vou
+15:18
+fechando aqueles reds ali no zer a zer.
+15:21
+Às vezes eu perco um pouquinho e se o
+15:23
+mercado continuar descendo, vou usando o
+15:24
+lucro desses R para bater operações mais
+15:27
+antigas lá de cima, né? mesmo jeito que
+15:30
+eu faço ali no Eurosd.
+15:32
+E como eu falei para vocês, a questão de
+15:35
+lote, né? Por que eu não aumentei ainda
+15:37
+o lote, sendo que a conta está aí
+15:39
+praticamente cinco vezes maior? Porque
+15:42
+dessa forma, pessoal, eu consigo abrir
+15:44
+mais operações aqui se eu quiser. Ao
+15:46
+invés de eu abrir quatro, cinco
+15:47
+operações, no máximo por um lado, depois
+15:49
+começar a abrir head, eu posso abrir
+15:51
+seis, sete se eu quiser, porque eu vou
+15:54
+fracionando o tamanho do lote. Ao invés
+15:57
+de eu abrir aqui, por exemplo, dois
+15:59
+lotes, três lotes aqui no EuroSD e no
+16:02
+Down Jones abrir, por exemplo, um lote
+16:05
+ou 1.50,
+16:07
+eu continuo abrindo 0.50 50 e dessa
+16:10
+forma eu consigo abrir mais operações,
+16:12
+né? Então eu corro menos riscos. Por
+16:15
+isso que lá na MyFXBook, como vocês
+16:17
+viram aí, aqui na questão do
+16:20
+rebaixamento,
+16:21
+eh ficou aqui, ó, bem mais tranquilo,
+16:24
+né? Não subiu muito porque eu venho
+16:26
+mantendo os mesmos lotes, né? O mesmo
+16:30
+tamanho de lote desde do início da
+16:33
+série, pessoal. Então é isso, né? Meta
+16:35
+batida aqui mais uma vez, né? Passamos
+16:37
+aí de R 1 milhão deais só de lucro aqui
+16:40
+nessa conta, né? Só lembrando vocês que
+16:42
+links importantes na descrição aqui do
+16:45
+vídeo, como o link aí da corretora que
+16:47
+eu utilizo aqui essa conta, que é a
+16:49
+corretora do Prime, tá? Tem outras
+16:51
+corretoras também que são as corretoras
+16:53
+que eu mais confio no momento, tá
+16:56
+pessoal? A partir do momento que a
+16:57
+corretora começa a dar problemas, e eu
+16:59
+simplesmente venho, aviso vocês, saio da
+17:02
+corretora e retiro o link do canal, tá?
+17:04
+Eu falo assim, quando a corretora começa
+17:06
+a dar algum problema, que eu acho que é
+17:07
+mais grave, né? Um probleminha ou outra,
+17:09
+toda corretora tem. Agora quando eu vejo
+17:11
+que é mais grave, né? Então eu retiro
+17:14
+meu capital, aviso vocês, como eu já fiz
+17:16
+com algumas corretoras que já passaram
+17:19
+aqui pelo canal, tá? Link do grupo do
+17:21
+Telegram na descrição aqui também.
+17:23
+Qualquer dúvida, deixa um comentário
+17:25
+abaixo aqui que eu respondo todo mundo.
+17:27
+Não esqueça da sua inscrição, de um
+17:30
+like, que isso ajuda demais. Então,
+17:32
+fechando o vídeo aqui, pessoal. Espero
+17:33
+que vocês tenham gostado, espero ter
+17:35
+ajudado vocês. Até a próxima. Um forte
+17:38
+abraço a todos e fui.
